@@ -1,5 +1,5 @@
 // PROMEBEL 3D service worker: works offline, but always loads the newest version first (bypasses the browser cache)
-const CACHE = 'promebel3d-v21';
+const CACHE = 'promebel3d-v22';
 const CORE = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE.map(u => new Request(u, {cache: 'reload'})))).catch(() => {})); self.skipWaiting(); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
